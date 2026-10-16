@@ -70,7 +70,7 @@ export function Requests() {
 function RequestModal({ id, onClose, onDone }: { id: number; onClose: () => void; onDone: () => void }) {
   const { user, meta } = useAuth();
   const toast = useToast();
-  const { data: b, error, loading } = useFetch<Detail>(`/bookings/${id}`);
+  const { data: b, error, loading, reload } = useFetch<Detail>(`/bookings/${id}`);
   const [note, setNote] = useState('');
   const [series, setSeries] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -87,6 +87,7 @@ function RequestModal({ id, onClose, onDone }: { id: number; onClose: () => void
       onClose();
     } catch (e) {
       setErr((e as Error).message);
+      reload();
     } finally {
       setBusy(false);
     }
@@ -158,6 +159,7 @@ function RequestModal({ id, onClose, onDone }: { id: number; onClose: () => void
           {b.validation && (
             <div className="space-y-2">
               {b.validation.ok ? (
+                !err && 
                 <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">Sem conflitos: a sala está livre neste horário.</div>
               ) : (
                 <ErrorBox message={[...b.validation.errors, ...b.validation.conflicts.filter((c) => c.blocking).map((c) => c.message)].join(' ')} />

@@ -88,21 +88,23 @@ function BookingList() {
                 </p>
               </div>
               <div className="min-w-0 flex-1">
-                <Link to={`/salas/${b.room_id}`} className="text-sm font-bold text-primary hover:underline">
+                <Link to={`/salas/${b.room_id}`} className="block break-words text-sm font-bold text-primary hover:underline">
                   {b.room_name}
                 </Link>
-                <p className="truncate text-xs text-muted">
+                <p className="break-words text-xs text-muted sm:truncate">
                   {b.title} · {b.attendees} pessoas{user?.role === 'gestao' ? ` · ${b.user_name}` : ''}
                   {b.series_id ? ' · recorrente' : ''}
                 </p>
                 {b.review_note && <p className="text-[11px] text-red-700">Obs.: {b.review_note}</p>}
               </div>
+              <div className="flex w-full items-center justify-end gap-2 sm:w-auto">
               <BookingPill status={b.status} />
               {(b.status === 'pendente' || b.status === 'aprovada') && b.date >= (meta?.now.date ?? '') && (user?.role === 'gestao' || b.user_id === user?.id) && (
                 <button onClick={() => cancel(b)} className="btn-ghost px-2 py-1 text-xs text-red-600 hover:bg-red-50" title="Cancelar">
                   <X className="size-4" /> Cancelar
                 </button>
               )}
+              </div>
             </div>
           ))}
         </div>
