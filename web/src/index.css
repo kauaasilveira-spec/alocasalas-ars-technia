@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #3e4bcc;
+  --color-primary-dark: #2f3aa6;
+  --color-secondary: #357dbf;
+  --color-mist: #a6bcc9;
+  --color-peach: #f7dcba;
+  --color-sand: #f6e0b6;
+  --color-cream: #fff4eb;
+  --color-ink: #262b55;
+  --color-muted: #6b6f8f;
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  input,
+  select,
+  textarea {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-white/80 border border-peach shadow-sm;
+  }
+  .card-peach {
+    @apply rounded-2xl bg-peach/60 border border-peach;
+  }
+  .input {
+    @apply w-full rounded-xl border border-peach bg-peach/40 px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/70 outline-none transition focus:border-secondary focus:bg-white focus:ring-2 focus:ring-secondary/20 disabled:opacity-60;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold text-primary;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-primary text-white shadow-sm hover:bg-primary-dark;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-secondary text-white hover:brightness-110;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 border border-primary text-primary hover:bg-primary/5;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 text-primary hover:bg-primary/5;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-red-600 text-white hover:bg-red-700;
+  }
+  .chip {
+    @apply rounded-full border border-primary/30 bg-white px-3.5 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/5;
+  }
+  .chip-active {
+    @apply bg-primary text-white border-primary hover:bg-primary;
+  }
+  .page-title {
+    @apply text-xl font-bold text-primary md:text-2xl;
+  }
+}
