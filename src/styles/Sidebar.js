@@ -1,80 +1,112 @@
 import { StyleSheet } from 'react-native';
 
+const CORES = {
+  azul: '#357DBF',
+  azulEscuro: '#285D8C',
+  fundo: '#A6BCC9',
+  creme: '#FFF4EB',
+  branco: '#F1F0EF',
+  texto: '#171717',
+  rosa: '#D9A4A4',
+  verde: '#B6D6A7',
+  amarelo: '#F0E27A',
+  roxo: '#3E4BCC',
+  destaque: '#FFCEAB',
+};
+
 export const styles = StyleSheet.create({
+  // MENU DESKTOP
   menu: {
-    width: 240,
-    backgroundColor: '#357DBF',
-    paddingVertical: 24,
-    paddingHorizontal: 16,
-    justifyContent: 'space-between',
-  },
-  menuMobile: {
-    width: '100%',
-    backgroundColor: '#357DBF',
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-  },
-  menuMobileContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  itemMenuMobile: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 16,
-  },
-  itemSelecionadoMobile: {
-    backgroundColor: '#FFFFFF',
+    width: 145,
+    backgroundColor: CORES.azul,
+    paddingHorizontal: 10,
+    paddingTop: 20,
   },
   menuTitulo: {
-    fontSize: 11,
-    fontWeight: 'bold',
     color: '#FFFFFF',
-    opacity: 0.8,
-    marginBottom: 20,
-    letterSpacing: 1,
-    paddingLeft: 8,
+    fontSize: 9,
+    marginBottom: 12,
+    fontFamily: 'Montserrat-SemiBold',
   },
   itemMenu: {
+    minHeight: 35,
+    borderRadius: 6,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    paddingHorizontal: 8,
     marginBottom: 6,
   },
   itemSelecionado: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F1F0EF',
   },
   iconeMenu: {
     width: 18,
     height: 18,
-    marginRight: 10,
+    marginRight: 8,
     tintColor: '#FFFFFF',
   },
   iconeSelecionado: {
-    tintColor: '#357DBF',
+    tintColor: CORES.azul,
   },
   textoMenu: {
-    fontSize: 14,
     color: '#FFFFFF',
-    fontWeight: '500',
+    fontSize: 11,
+    fontFamily: 'Montserrat-Regular',
   },
   textoSelecionado: {
-    color: '#357DBF',
-    fontWeight: 'bold',
+    color: CORES.azul,
+    fontFamily: 'Montserrat-SemiBold',
   },
   rodapeMenu: {
-    marginTop: 'auto',
-    paddingTop: 16,
-    paddingLeft: 8,
+    position: 'absolute',
+    bottom: 18,
+    left: 10,
   },
   rodapeTexto: {
-    fontSize: 12,
+    fontSize: 9,
     color: '#FFFFFF',
-    opacity: 0.9,
+    fontFamily: 'Montserrat-Regular',
+  },
+  rodapeVersao: {
+    fontSize: 8,
+    color: '#D8E8F5',
+    marginTop: 4,
+    fontFamily: 'Montserrat-Regular',
+  },
+
+  // MENU CELULAR (RODAPÉ MOBILE)
+  menuCelular: {
+    width: '100%',
+    height: 65,
+    minHeight: 65,
+    backgroundColor: CORES.azul,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingHorizontal: 5,
+    paddingVertical: 4,
+  },
+  itemMenuCelular: {
+    flex: 1,
+    height: 57,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+  },
+  iconeMenuCelular: {
+    width: 23,
+    height: 23,
+    tintColor: '#FFFFFF',
+  },
+  iconeMenuAtivoCelular: {
+    tintColor: CORES.destaque,
+  },
+  textoMenuCelular: {
+    color: '#FFFFFF',
+    fontSize: 9,
+    fontFamily: 'Montserrat-Regular',
+    textAlign: 'center',
   },
 });
+
+export default styles;

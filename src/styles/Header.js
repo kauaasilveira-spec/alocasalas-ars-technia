@@ -1,73 +1,79 @@
 import { StyleSheet } from 'react-native';
 
+const CORES = {
+  azul: '#357DBF',
+  azulEscuro: '#285D8C',
+  fundo: '#A6BCC9',
+  creme: '#FFF4EB',
+  branco: '#F1F0EF',
+  texto: '#171717',
+  rosa: '#D9A4A4',
+  verde: '#B6D6A7',
+  amarelo: '#F0E27A',
+  roxo: '#3E4BCC',
+  destaque: '#FFCEAB',
+};
+
 export const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    height: 60,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EBEFF3',
-  },
-  brandContainer: {
+  cabecalho: {
+    minHeight: 48,
+    backgroundColor: '#F0EFEE',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    paddingHorizontal: 12,
   },
-  logoImage: {
-    width: 32,
-    height: 32,
+  logo: {
+    width: 34,
+    height: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
   },
-  brandTextContainer: {
+  imagemLogo: {
+    width: 34,
+    height: 34,
+  },
+  marca: {
     justifyContent: 'center',
   },
-  brandTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    fontFamily: 'Montserrat_700Bold',
-    color: '#2878C5',
-    lineHeight: 18,
+  marcaTitulo: {
+    fontSize: 12,
+    fontFamily: 'Montserrat-Bold',
+    color: CORES.azul,
   },
-  brandSubtitle: {
-    fontSize: 9,
-    fontFamily: 'Montserrat_600SemiBold',
-    color: '#94A3B8',
-    letterSpacing: 1.5,
+  marcaSubtitulo: {
+    fontSize: 8,
+    fontFamily: 'Montserrat-Regular',
+    color: CORES.azul,
     marginTop: 2,
   },
-  userProfile: {
-    flexDirection: 'row',
+  espaco: {
+    flex: 1,
+  },
+  sino: {
+    width: 20,
+    height: 20,
+    marginRight: 12,
+  },
+  avatar: {
+    width: 25,
+    height: 25,
+    borderRadius: 13,
+    backgroundColor: '#E3D2B9',
     alignItems: 'center',
-    gap: 12,
-  },
-  iconButton: {
-    padding: 4,
-  },
-  notificationIcon: {
-    width: 18,
-    height: 18,
-    tintColor: '#2878C5',
-  },
-  avatarCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#EDF2F7',
     justifyContent: 'center',
-    alignItems: 'center',
+    marginRight: 7,
   },
-  avatarIcon: {
-    width: 16,
-    height: 16,
-    tintColor: '#2878C5',
+  avatarIcone: {
+    width: 20,
+    height: 20,
+    tintColor: CORES.azul,
   },
-  userName: {
-    fontSize: 13,
-    fontWeight: '600',
-    fontFamily: 'Montserrat_600SemiBold',
-    color: '#2878C5',
+  usuario: {
+    color: CORES.azul,
+    fontSize: 10,
+    fontFamily: 'Montserrat-Regular',
   },
 });
+
+export default styles;

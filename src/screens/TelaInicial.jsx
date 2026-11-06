@@ -12,15 +12,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { styles } from '../styles/TelaInicial';
-
-const CORES = {
-  azul: '#357DBF',
-  verde: '#B6D6A7',
-  rosa: '#D9A4A4',
-  amarelo: '#F0E27A',
-  roxo: '#3E4BCC',
-};
+import CardSala from '../components/CardSala';
+import styles from '../styles/TelaInicial';
 
 const salasIniciais = [
   { id: 1, status: 'Reservada', sala: 'Sala 15 - Desenvolvimento de Sistemas', professor: 'Professor Eduardo', capacidade: 30 },
@@ -33,42 +26,17 @@ const salasIniciais = [
   { id: 8, status: 'Aberta', sala: 'Sala 18 - Redes de Computação', professor: 'Professor Patrick', capacidade: 20 },
 ];
 
-const filtros = [
-  'Todos',
-  'Abertas',
-  'Reservadas',
-  'Em manutenção',
-  'Fechadas',
-];
+const filtros = ['Todos', 'Abertas', 'Reservadas', 'Em manutenção', 'Fechadas'];
 
-function corStatus(status) {
-  switch (status) {
-    case 'Reservada':
-      return CORES.roxo;
-    case 'Aberta':
-      return CORES.verde;
-    case 'Fechada':
-      return CORES.rosa;
-    case 'Manutenção':
-      return CORES.amarelo;
-    default:
-      return '#DDDDDD';
-  }
-}
+export default function TelaInicial({ onNavegar }) {
+  const { width } = useWindowDimensions();
+  const celular = width <= 600;
 
-export default function TelaInicial() {
   const [filtro, setFiltro] = useState('Todos');
   const [busca, setBusca] = useState('');
-  const [salas] = useState(salasIniciais);
 
-  const { width } = useWindowDimensions();
-  const isMobile = width < 640;
-
-  const salasFiltradas = salas.filter((item) => {
-    const correspondeBusca = item.sala
-      .toLowerCase()
-      .includes(busca.toLowerCase());
-
+  const salasFiltradas = salasIniciais.filter((item) => {
+    const correspondeBusca = item.sala.toLowerCase().includes(busca.toLowerCase());
     const correspondeFiltro =
       filtro === 'Todos' ||
       (filtro === 'Abertas' && item.status === 'Aberta') ||
@@ -83,107 +51,100 @@ export default function TelaInicial() {
     <View style={styles.tela}>
       <StatusBar barStyle="dark-content" />
 
-      <Header />
+      <View style={styles.aplicativo}>
+        {!celular && <Header />}
 
-      <View style={[styles.conteudo, isMobile && { flexDirection: 'column' }]}>
-        <Sidebar isMobile={isMobile} />
+        <View style={[styles.conteudo, celular && styles.conteudoCelular]}>
+          {!celular && <Sidebar celular={celular} onNavegar={onNavegar} />}
 
-        <LinearGradient
-          colors={['#FFF4EB', '#A6BCC9']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.areaPrincipal}
-        >
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.conteudoRolavel}
+          <LinearGradient
+            colors={['#FFF4EB', '#A6BCC9']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={[styles.areaPrincipal, celular && styles.areaPrincipalCelular]}
           >
-            <Text style={styles.ola}>Olá, Alexia</Text>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={[
+                styles.conteudoRolavel,
+                celular && styles.conteudoRolavelCelular,
+              ]}
+            >
+              <Text style={styles.ola}>Olá, Alexia</Text>
 
-            <View style={styles.linhaTitulo}>
-              <Text style={styles.tituloPrincipal}>Minhas salas</Text>
+              <View style={[styles.linhaTitulo, celular && styles.linhaTituloCelular]}>
+                <Text style={styles.tituloPrincipal}>Minhas salas</Text>
 
-              <View style={styles.busca}>
-                <Text style={styles.lupa}>⌕</Text>
-                <TextInput
-                  style={styles.inputBusca}
-                  placeholder="Buscar por salas, eventos e aulas"
-                  placeholderTextColor="#64748B"
-                  value={busca}
-                  onChangeText={setBusca}
-                />
-              </View>
-            </View>
-
-            <View style={styles.linhaFiltros}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                style={styles.listaFiltros}
-                contentContainerStyle={styles.filtrosConteudo}
-              >
-                {filtros.map((nome) => (
-                  <TouchableOpacity
-                    key={nome}
-                    onPress={() => setFiltro(nome)}
-                    style={[
-                      styles.filtro,
-                      filtro === nome && styles.filtroAtivo,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.textoFiltro,
-                        filtro === nome && styles.textoFiltroAtivo,
-                      ]}
-                    >
-                      {nome}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </View>
-
-            <View style={styles.resultadosCabecalho}>
-              <Text style={styles.resultadosTitulo}>Resultados</Text>
-
-              <TouchableOpacity onPress={() => setFiltro('Todos')}>
-                <Text style={styles.verTodas}>Ver todas</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.grade}>
-              {salasFiltradas.map((item) => (
-                <View style={styles.cartao} key={item.id}>
-                  <View style={styles.cartaoConteudo}>
-                    <View
-                      style={[
-                        styles.etiqueta,
-                        { backgroundColor: corStatus(item.status) },
-                      ]}
-                    >
-                      <Text style={styles.etiquetaTexto}>{item.status}</Text>
-                    </View>
-
-                    <Text style={styles.nomeSala} numberOfLines={2}>
-                      {item.sala}
-                    </Text>
-
-                    <Text style={styles.detalheSala} numberOfLines={1}>
-                      {item.professor} - Máx. {item.capacidade}
-                    </Text>
-                  </View>
+                <View style={styles.busca}>
+                  <Text style={styles.lupa}>⌕</Text>
+                  <TextInput
+                    style={styles.inputBusca}
+                    placeholder="Buscar por salas, eventos e aulas"
+                    placeholderTextColor="#454545"
+                    value={busca}
+                    onChangeText={setBusca}
+                  />
                 </View>
-              ))}
+              </View>
 
-              {salasFiltradas.length === 0 && (
-                <Text style={styles.semResultados}>
-                  Nenhuma sala encontrada.
-                </Text>
-              )}
-            </View>
-          </ScrollView>
-        </LinearGradient>
+              <View style={[styles.linhaFiltros, celular && styles.linhaFiltrosCelular]}>
+                {celular ? (
+                  <View style={styles.filtrosMobile}>
+                    {filtros.map((nome) => (
+                      <TouchableOpacity
+                        key={nome}
+                        onPress={() => setFiltro(nome)}
+                        style={[styles.filtro, filtro === nome && styles.filtroAtivo]}
+                      >
+                        <Text style={[styles.textoFiltro, filtro === nome && styles.textoFiltroAtivo]}>
+                          {nome}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                ) : (
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.listaFiltros}
+                    contentContainerStyle={styles.filtrosConteudo}
+                  >
+                    {filtros.map((nome) => (
+                      <TouchableOpacity
+                        key={nome}
+                        onPress={() => setFiltro(nome)}
+                        style={[styles.filtro, filtro === nome && styles.filtroAtivo]}
+                      >
+                        <Text style={[styles.textoFiltro, filtro === nome && styles.textoFiltroAtivo]}>
+                          {nome}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                )}
+              </View>
+
+              <View style={styles.resultadosCabecalho}>
+                <Text style={styles.resultadosTitulo}>Resultados</Text>
+                <TouchableOpacity onPress={() => setFiltro('Todos')}>
+                  <Text style={styles.verTodas}>Ver todas</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={[styles.grade, celular && styles.gradeCelular]}>
+                {salasFiltradas.map((item) => (
+                  <CardSala key={item.id} item={item} celular={celular} />
+                ))}
+
+                {salasFiltradas.length === 0 && (
+                  <Text style={styles.semResultados}>Nenhuma sala encontrada.</Text>
+                )}
+              </View>
+            </ScrollView>
+          </LinearGradient>
+
+          {celular && <Sidebar celular={celular} onNavegar={onNavegar} />}
+        </View>
       </View>
     </View>
   );
